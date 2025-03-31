@@ -1,4 +1,4 @@
-#ChatApp
+ChatApp
 
 ChatApp is a real-time web-based chat application built using HTML, CSS, JavaScript, and PHP.
 
