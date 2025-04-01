@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>My chat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Chat</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet">
@@ -40,7 +42,7 @@
 
     #profile_image {
         width: 50%;
-        border: soiid thin black;
+        border: solid thin black;
         border-radius: 25%;
         margin: 10px;
         padding: 10px;
@@ -55,12 +57,11 @@
         border-bottom: solid thin white;
         cursor: pointer;
         padding: 5px;
+        transition: all 0.5s ease;
     }
 
     #left_pannel label:hover {
-
         background-color: #778593;
-
     }
 
     #left_pannel label img {
@@ -98,8 +99,21 @@
         width: 80%;
         background-image: url(./33282617.jpg);
         background-size: cover;
+        transition: all 1s ease;
+    }
 
+    /* Hide right panel when Chat is selected */
+    #radio_chat:checked~#inner_right_pannel {
+        width: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
 
+    /* Hide left panel when Contact is selected */
+    #radio_contact:checked~#inner_left_pannel {
+        width: 0;
+        opacity: 0;
+        overflow: hidden;
     }
 </style>
 
@@ -109,24 +123,30 @@
             <div style="padding: 10px;">
                 <img id="profile_image" src="./sachintha passport size.jpg">
                 <br>
-                Sachintha chamikara
+                Sachintha Chamikara
                 <br>
-                <span style="font-size: 12px;opacity: 0.5p;"> chamikara24sachintha@gmail.com</span>
+                <span style="font-size: 12px; opacity: 0.5;">chamikara24sachintha@gmail.com</span>
                 <div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label for="box">Chat<img src="./chat-icon.png"></label>
-                    <label>Contacts<img src="./contact-icon.png"></label>
-                    <label>Setting<img src="./search icon.png"></label>
+                    <br><br><br><br>
+
+                    <!-- Labels connected to radio inputs -->
+                    <label for="radio_chat" id="label_chat">Chat <img src="./chat-icon.png"></label>
+                    <label for="radio_contact" id="label_contact">Contacts <img src="./contact-icon.png"></label>
+                    <label for="radio_setting" id="label_setting">Setting <img src="./Settings-icon.png"></label>
                 </div>
             </div>
         </div>
+
         <div id="right_pannel">
             <div id="header">My Chat</div>
-            <div id="container" style="display: flex;">
+            <div id="container">
+
                 <div id="inner_left_pannel"></div>
+
+                <!-- Radio buttons moved above inner_right_pannel -->
+                <input type="radio" id="radio_chat" name="myradio">
+                <input type="radio" id="radio_contact" name="myradio">
+                <input type="radio" id="radio_setting" name="myradio">
 
                 <div id="inner_right_pannel"></div>
             </div>
