@@ -38,7 +38,7 @@
         text-align: center;
     }
 
-    #left_pannel img {
+    #profile_image {
         width: 50%;
         border: soiid thin black;
         border-radius: 25%;
@@ -48,12 +48,24 @@
 
     #left_pannel label {
         width: 100%;
-        height: 30px;
+        height: 20px;
         display: block;
         font-size: 14px;
         background-color: #404b56;
         border-bottom: solid thin white;
         cursor: pointer;
+        padding: 5px;
+    }
+
+    #left_pannel label:hover {
+
+        background-color: #778593;
+
+    }
+
+    #left_pannel label img {
+        float: right;
+        width: 25px;
     }
 
     #right_pannel {
@@ -95,7 +107,7 @@
     <div id="wrapper">
         <div id="left_pannel">
             <div style="padding: 10px;">
-                <img src="./sachintha passport size.jpg">
+                <img id="profile_image" src="./sachintha passport size.jpg">
                 <br>
                 Sachintha chamikara
                 <br>
@@ -105,9 +117,9 @@
                     <br>
                     <br>
                     <br>
-                    <label for="box">Chat</label>
-                    <label>Contacts</label>
-                    <label>Setting</label>
+                    <label for="box">Chat<img src="./chat-icon.png"></label>
+                    <label>Contacts<img src="./contact-icon.png"></label>
+                    <label>Setting<img src="./search icon.png"></label>
                 </div>
             </div>
         </div>
@@ -115,7 +127,7 @@
             <div id="header">My Chat</div>
             <div id="container" style="display: flex;">
                 <div id="inner_left_pannel"></div>
-                
+
                 <div id="inner_right_pannel"></div>
             </div>
         </div>
