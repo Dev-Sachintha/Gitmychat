@@ -8,131 +8,150 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        
+        #dynamic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            z-index: -1;
+        }
+
+        
+        #wrapper {
+            max-width: 1000px;
+            min-height: 1000px;
+            display: flex;
+            background-color: rgba(225, 114, 114, 0.9);
+            margin: 0 auto;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        
+        #left_pannel {
+            min-height: 100%;
+            background-color: rgba(188, 84, 84, 0.9);
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #profile_image {
+            width: 50%;
+            border: solid thin black;
+            border-radius: 25%;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #left_pannel label {
+            width: 100%;
+            height: 20px;
+            display: block;
+            font-size: 14px;
+            background-color: #404b56;
+            border-bottom: solid thin white;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.5s ease;
+        }
+
+        #left_pannel label:hover {
+            background-color: #778593;
+        }
+
+        #left_pannel label img {
+            float: right;
+            width: 25px;
+        }
+
+        #right_pannel {
+            min-height: 100%;
+            background-color: rgba(232, 232, 243, 0.9);
+            flex: 5;
+            text-align: center;
+        }
+
+        #header {
+            height: 50px;
+            background-color: rgb(167, 156, 234);
+            font-size: 40px;
+            text-align: center;
+            font-family: 'Gravitas One', sans-serif;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: row;
+            height: calc(100% - 50px);
+        }
+
+        
+        #inner_left_pannel {
+            width: 50%;
+            background-color: rgb(203, 192, 178);
+        }
+
+        #inner_right_pannel {
+            width: 80%;
+            background-image: url('./33282617.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: all 1s ease;
+        }
+
+        
+        #radio_chat:checked~#inner_right_pannel {
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        
+        #radio_contact:checked~#inner_left_pannel {
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
-<style type="text/css">
-    @font-face {
-        font-family: 'Gravitas One';
-        src: url(GravitasOne-Regular.ttf) format('truetype');
-    }
-
-    @font-face {
-        font-family: 'Dancing Script';
-        src: url(DancingScript-VariableFont_wght.ttf) format('truetype');
-    }
-
-    #wrapper {
-        max-width: 1000px;
-        min-height: 1000px;
-        display: flex;
-        background-color: rgb(225, 114, 114);
-        margin: 0 auto;
-        color: white;
-        font-family: 'Dancing Script', cursive;
-        font-size: 14px;
-    }
-
-    #left_pannel {
-        min-height: 100%;
-        background-color: rgb(188, 84, 84);
-        flex: 1;
-        padding: 10px;
-        text-align: center;
-    }
-
-    #profile_image {
-        width: 50%;
-        border: solid thin black;
-        border-radius: 25%;
-        margin: 10px;
-        padding: 10px;
-    }
-
-    #left_pannel label {
-        width: 100%;
-        height: 20px;
-        display: block;
-        font-size: 14px;
-        background-color: #404b56;
-        border-bottom: solid thin white;
-        cursor: pointer;
-        padding: 5px;
-        transition: all 0.5s ease;
-    }
-
-    #left_pannel label:hover {
-        background-color: #778593;
-    }
-
-    #left_pannel label img {
-        float: right;
-        width: 25px;
-    }
-
-    #right_pannel {
-        min-height: 100%;
-        background-color: rgb(232, 232, 243);
-        flex: 5;
-        text-align: center;
-    }
-
-    #header {
-        height: 50px;
-        background-color: rgb(167, 156, 234);
-        font-size: 40px;
-        text-align: center;
-        font-family: Gravitas One, sans-serif;
-    }
-
-    #container {
-        display: flex;
-        flex-direction: row;
-        height: calc(100% - 50px);
-    }
-
-    #inner_left_pannel {
-        width: 50%;
-        background-color: rgb(203, 192, 178);
-    }
-
-    #inner_right_pannel {
-        width: 80%;
-        background-image: url(./33282617.jpg);
-        background-size: cover;
-        transition: all 1s ease;
-    }
-
-    /* Hide right panel when Chat is selected */
-    #radio_chat:checked~#inner_right_pannel {
-        width: 0;
-        opacity: 0;
-        overflow: hidden;
-    }
-
-    /* Hide left panel when Contact is selected */
-    #radio_contact:checked~#inner_left_pannel {
-        width: 0;
-        opacity: 0;
-        overflow: hidden;
-    }
-</style>
-
 <body>
+    
+    <div id="dynamic-bg"></div>
+
     <div id="wrapper">
         <div id="left_pannel">
             <div style="padding: 10px;">
-                <img id="profile_image" src="./sachintha passport size.jpg">
+                <img id="profile_image" src="./sachintha passport size.jpg" alt="Profile Picture">
                 <br>
-                Sachintha Chamikara
+                <strong>Sachintha Chamikara</strong>
                 <br>
                 <span style="font-size: 12px; opacity: 0.5;">chamikara24sachintha@gmail.com</span>
                 <div>
                     <br><br><br><br>
 
-                    <!-- Labels connected to radio inputs -->
-                    <label for="radio_chat" id="label_chat">Chat <img src="./chat-icon.png"></label>
-                    <label for="radio_contact" id="label_contact">Contacts <img src="./contact-icon.png"></label>
-                    <label for="radio_setting" id="label_setting">Setting <img src="./Settings-icon.png"></label>
+                    
+                    <label for="radio_chat" id="label_chat">Chat <img src="./chat-icon.png" alt="Chat Icon"></label>
+                    <label for="radio_contact" id="label_contact">Contacts <img src="./contact-icon.png" alt="Contact Icon"></label>
+                    <label for="radio_setting" id="label_setting">Setting <img src="./Settings-icon.png" alt="Settings Icon"></label>
                 </div>
             </div>
         </div>
@@ -140,10 +159,9 @@
         <div id="right_pannel">
             <div id="header">My Chat</div>
             <div id="container">
-
                 <div id="inner_left_pannel"></div>
 
-                <!-- Radio buttons moved above inner_right_pannel -->
+                
                 <input type="radio" id="radio_chat" name="myradio">
                 <input type="radio" id="radio_contact" name="myradio">
                 <input type="radio" id="radio_setting" name="myradio">
@@ -152,6 +170,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        
+        const images = [
+            "./pngtree.jpg",
+            "./oytm.jpg",
+            "./vibrant.jpg",
+            "./xy.jpg",
+        ];
+
+        let index = 0; 
+
+        function changeBackground() {
+            document.getElementById("dynamic-bg").style.backgroundImage = `url('${images[index]}')`;
+            index = (index + 1) % images.length; 
+        }
+
+        
+        setInterval(changeBackground, 5000);
+
+        
+        changeBackground();
+    </script>
 </body>
 
 </html>
