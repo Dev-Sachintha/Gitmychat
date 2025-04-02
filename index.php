@@ -17,7 +17,6 @@
             overflow: hidden;
         }
 
-
         #dynamic-bg {
             position: fixed;
             top: 0;
@@ -30,22 +29,18 @@
             z-index: -1;
         }
 
-
         #wrapper {
             max-width: 1000px;
             min-height: 1000px;
             display: flex;
-            background-color: rgba(225, 114, 114, 0.9);
+            background-color: transparent;
             margin: 0 auto;
             color: white;
             font-family: 'Dancing Script', cursive;
             font-size: 14px;
             position: relative;
             z-index: 1;
-            background-color: transparent;
-
         }
-
 
         #left_pannel {
             min-height: 100%;
@@ -61,6 +56,7 @@
             border-radius: 25%;
             margin: 10px;
             padding: 10px;
+            background-color: transparent;
         }
 
         #left_pannel label {
@@ -105,10 +101,12 @@
             height: calc(100% - 50px);
         }
 
-
         #inner_left_pannel {
             width: 50%;
-            background-color: rgb(203, 192, 178);
+            background-color: transparent;
+            padding: 20px;
+            font-size: 16px;
+            color: black;
         }
 
         #inner_right_pannel {
@@ -120,13 +118,11 @@
             background-color: transparent;
         }
 
-
         #radio_chat:checked~#inner_right_pannel {
             width: 0;
             opacity: 0;
             overflow: hidden;
         }
-
 
         #radio_contact:checked~#inner_left_pannel {
             width: 0;
@@ -151,7 +147,6 @@
                 <div>
                     <br><br><br><br>
 
-
                     <label for="radio_chat" id="label_chat">Chat <img src="./chat-icon.png" alt="Chat Icon"></label>
                     <label for="radio_contact" id="label_contact">Contacts <img src="./contact-icon.png" alt="Contact Icon"></label>
                     <label for="radio_setting" id="label_setting">Setting <img src="./Settings-icon.png" alt="Settings Icon"></label>
@@ -164,7 +159,6 @@
             <div id="container">
                 <div id="inner_left_pannel"></div>
 
-
                 <input type="radio" id="radio_chat" name="myradio">
                 <input type="radio" id="radio_contact" name="myradio">
                 <input type="radio" id="radio_setting" name="myradio">
@@ -175,6 +169,35 @@
     </div>
 
     <script>
+        function _(element) {
+            return document.getElementById(element);
+        }
+
+        function read_data() {
+
+            var inner_left_pannel = _("inner_left_pannel");
+
+        }
+        var label = _("label_chat");
+        label.addEventListener("click", function() {
+            var inner_left_pannel = _("inner_left_pannel");
+
+            var ajax = new XMLHttpRequest();
+            ajax.onload = function() {
+
+                if (ajax.status == 200 || ajax.readyState == 4) {
+                    inner_left_pannel.innerHTML = ajax.responseText;
+                } else {
+                    inner_left_pannel.innerHTML = "Error loading data";
+                }
+            };
+
+
+        
+        ajax.open("POST", "file.txt", true); 
+        ajax.send();
+
+        });
         const images = [
             "./pngtree.jpg",
             "./oytm.jpg",
@@ -189,12 +212,10 @@
             index = (index + 1) % images.length;
         }
 
-
         setInterval(changeBackground, 5000);
-
-
         changeBackground();
     </script>
+
 </body>
 
 </html>
