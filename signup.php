@@ -42,93 +42,7 @@
             z-index: 1;
         }
 
-        #left_pannel {
-            min-height: 100%;
-            background-color: rgba(247, 226, 226, 0.9);
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #profile_image {
-            width: 50%;
-            border: solid thin black;
-            border-radius: 25%;
-            margin: 10px;
-            padding: 10px;
-            background-color: transparent;
-        }
-
-        #left_pannel label {
-            width: 100%;
-            height: 20px;
-            display: block;
-            font-size: 14px;
-            background-color: #404b56;
-            border-bottom: solid thin white;
-            cursor: pointer;
-            padding: 5px;
-            transition: all 0.5s ease;
-        }
-
-        #left_pannel label:hover {
-            background-color: #778593;
-        }
-
-        #left_pannel label img {
-            float: right;
-            width: 25px;
-        }
-
-        #right_pannel {
-            min-height: 100%;
-            background-color: rgba(232, 232, 243, 0.9);
-            flex: 5;
-            text-align: center;
-        }
-
-        #header {
-            height: 50px;
-            background-color: rgb(193, 188, 224);
-            font-size: 40px;
-            text-align: center;
-            font-family: 'Gravitas One', sans-serif;
-        }
-
-        #container {
-            display: flex;
-            flex-direction: row;
-            height: calc(100% - 50px);
-        }
-
-        #inner_left_pannel {
-            width: 50%;
-            background-color: transparent;
-            padding: 20px;
-            font-size: 16px;
-            color: black;
-        }
-
-        #inner_right_pannel {
-            width: 80%;
-            background-image: url('./chat.png');
-            background-size: cover;
-            background-position: center;
-            transition: all 1s ease;
-            background-color: transparent;
-        }
-
-        #radio_chat:checked~#inner_right_pannel {
-            width: 0;
-            opacity: 0;
-            overflow: hidden;
-        }
-
-        #radio_contact:checked~#inner_left_pannel {
-            width: 0;
-            opacity: 0;
-            overflow: hidden;
-        }
+        
     </style>
 </head>
 
@@ -137,6 +51,15 @@
     <div id="dynamic-bg"></div>
 
     <div id="wrapper">
+        <form>
+            <input type="text" name="username" placeholder="Username"><br>
+            <br>Gender:<br>
+            <input type="radio" name="gender">Male<br>
+            <input type="radio" name="gender">Female<br>
+            <input type="password" name="password" placeholder="Password"><br>
+            <input type="password" name="confirm_password" placeholder="Confirm Password"><br>
+            <input type="submit" value="Sign Up"><br> 
+        </form>
         <div id="left_pannel">
             <div style="padding: 10px;">
                 <img id="profile_image" src="./sachintha passport size.jpg" alt="Profile Picture">
@@ -159,14 +82,7 @@
             <div id="container">
                 <div id="inner_left_pannel"></div>
 
-                <input type="radio" id="radio_chat" name="myradio">
-                <input type="radio" id="radio_contact" name="myradio">
-                <input type="radio" id="radio_setting" name="myradio">
-
-                <div id="inner_right_pannel"></div>
-            </div>
-        </div>
-    </div>
+                
 
     <script type="text/javascript">
         function _(element) {
@@ -193,9 +109,9 @@
             };
 
 
-        
-        ajax.open("POST", "file.txt", true); 
-        ajax.send();
+
+            ajax.open("POST", "file.txt", true);
+            ajax.send();
 
         });
         const images = [
