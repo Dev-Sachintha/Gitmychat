@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Chat</title>
+    <title>Login and Registration Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
             height: 100%;
             margin: 0;
             overflow: hidden;
+            font-family: 'Dancing Script', cursive;
         }
 
         #dynamic-bg {
@@ -30,19 +31,67 @@
         }
 
         #wrapper {
-            max-width: 1000px;
-            min-height: 1000px;
+            max-width: 800px;
+            min-height: 400px;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background-color: transparent;
-            margin: 0 auto;
-            color: white;
-            font-family: 'Dancing Script', cursive;
+            margin: 50px auto;
+            color: grey;
             font-size: 14px;
             position: relative;
             z-index: 1;
+
         }
 
-        
+        form {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 90%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            
+        }
     </style>
 </head>
 
@@ -51,74 +100,45 @@
     <div id="dynamic-bg"></div>
 
     <div id="wrapper">
+        <div id="header">MY Chat</div>
         <form>
-            <input type="text" name="username" placeholder="Username"><br>
-            <br>Gender:<br>
-            <input type="radio" name="gender">Male<br>
-            <input type="radio" name="gender">Female<br>
-            <input type="password" name="password" placeholder="Password"><br>
-            <input type="password" name="confirm_password" placeholder="Confirm Password"><br>
-            <input type="submit" value="Sign Up"><br> 
+            <h2>Register</h2>
+            <input type="text" name="username" placeholder="Username" required><br><br>
+            Gender:<br>
+            <input type="radio" name="gender" value="Male"> Male
+            <input type="radio" name="gender" value="Female"> Female<br><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
+            <input type="submit" value="Sign Up">
         </form>
-        <div id="left_pannel">
-            <div style="padding: 10px;">
-                <img id="profile_image" src="./sachintha passport size.jpg" alt="Profile Picture">
-                <br>
-                <strong>Sachintha Chamikara</strong>
-                <br>
-                <span style="font-size: 12px; opacity: 0.5;">chamikara24sachintha@gmail.com</span>
-                <div>
-                    <br><br><br><br>
 
-                    <label for="radio_chat" id="label_chat">Chat <img src="./chat-icon.png" alt="Chat Icon"></label>
-                    <label for="radio_contact" id="label_contact">Contacts <img src="./contact-icon.png" alt="Contact Icon"></label>
-                    <label for="radio_setting" id="label_setting">Setting <img src="./Settings-icon.png" alt="Settings Icon"></label>
-                </div>
-            </div>
-        </div>
+        <label id="label_chat" style="cursor: pointer; margin-top: 20px; display: block;">Open Chat</label>
+        <div id="inner_left_pannel" style="width: 100%; text-align: center; padding: 10px;"></div>
+    </div>
 
-        <div id="right_pannel">
-            <div id="header">My Chat</div>
-            <div id="container">
-                <div id="inner_left_pannel"></div>
-
-                
-
-    <script type="text/javascript">
-        function _(element) {
-            return document.getElementById(element);
-        }
-
-        function read_data() {
-
-            var inner_left_pannel = _("inner_left_pannel");
-
-        }
-        var label = _("label_chat");
-        label.addEventListener("click", function() {
-            var inner_left_pannel = _("inner_left_pannel");
+    <script>
+        document.getElementById("label_chat").addEventListener("click", function() {
+            var inner_left_pannel = document.getElementById("inner_left_pannel");
 
             var ajax = new XMLHttpRequest();
             ajax.onload = function() {
-
-                if (ajax.status == 200 || ajax.readyState == 4) {
+                if (ajax.status == 200 && ajax.readyState == 4) {
                     inner_left_pannel.innerHTML = ajax.responseText;
                 } else {
                     inner_left_pannel.innerHTML = "Error loading data";
                 }
             };
 
-
-
-            ajax.open("POST", "file.txt", true);
+            ajax.open("GET", "file.txt", true);
             ajax.send();
-
         });
+
+        // Background Image Slideshow
         const images = [
             "./pngtree.jpg",
             "./oytm.jpg",
             "./vibrant.jpg",
-            "./xy.jpg",
+            "./xy.jpg"
         ];
 
         let index = 0;
