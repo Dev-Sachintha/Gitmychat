@@ -104,12 +104,12 @@
         </div>
         <form id="myform" >
             <h2>Register</h2>
-            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="text" name="username" placeholder="Username" required><br><br>
             <input type="text" name="email" placeholder="Email" required><br>
             <br>Gender:<br>
             <input type="radio" name="gender" value="Male"> Male
             <input type="radio" name="gender" value="Female"> Female<br><br>
-            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="password" name="password" placeholder="Password" required><br><br>
             <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
             <input type="submit" value="Sign Up" id="signup_button"><br><br><br>
         </form>
