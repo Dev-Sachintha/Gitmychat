@@ -56,9 +56,7 @@
             text-align: center;
         }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="submit"] {
+        input[type="text"],input[type="password"],input[type="submit"] {
             width: 90%;
             padding: 8px;
             margin-top: 5px;
@@ -90,8 +88,9 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            
+
         }
+        
     </style>
 </head>
 
@@ -100,16 +99,19 @@
     <div id="dynamic-bg"></div>
 
     <div id="wrapper">
-        <div id="header">MY Chat</div>
-        <form>
+        <div id="header">MY Chat
+            <div style="font-size: 14px; font-family: 'Gravitas One', cursive; color: #555;">Welcome to the Chat Application</div>
+        </div>
+        <form id="myform" >
             <h2>Register</h2>
-            <input type="text" name="username" placeholder="Username" required><br><br>
-            Gender:<br>
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="text" name="email" placeholder="Email" required><br>
+            <br>Gender:<br>
             <input type="radio" name="gender" value="Male"> Male
             <input type="radio" name="gender" value="Female"> Female<br><br>
             <input type="password" name="password" placeholder="Password" required><br>
             <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Sign Up" id="signup_button"><br><br><br>
         </form>
 
         <label id="label_chat" style="cursor: pointer; margin-top: 20px; display: block;">Open Chat</label>
@@ -117,22 +119,53 @@
     </div>
 
     <script>
-        document.getElementById("label_chat").addEventListener("click", function() {
-            var inner_left_pannel = document.getElementById("inner_left_pannel");
+        function _(element){
+            return document.getElementById(element);
+        }
+        var signup_button = _("signup_button");
+        signup_button.addEventListener("click", collect_data);
 
-            var ajax = new XMLHttpRequest();
-            ajax.onload = function() {
-                if (ajax.status == 200 && ajax.readyState == 4) {
-                    inner_left_pannel.innerHTML = ajax.responseText;
-                } else {
-                    inner_left_pannel.innerHTML = "Error loading data";
-                }
-            };
+    function collect_data(){
+        var myform = _("myform");
+        var inputs = myform.getElementsByTagName("input");
+        var data = {};
 
-            ajax.open("GET", "file.txt", true);
-            ajax.send();
-        });
+        for(var i = inputs.length - 1; i >= 0; i--){
 
+            var key =inputs[i].name;
+            switch(key){
+                case "username":
+                   data.username = inputs[i].value;
+                   break;    
+                case "email":
+                    data.email = inputs[i].value;
+                    break;
+                case "gender":
+                    if(inputs[i].checked){
+                    data.gender = inputs[i].value;
+                    }
+                    break;
+                case "password":
+                    data.password = inputs[i].value;
+                    break;        
+                case "confirm_password":
+                    data.confirm_password = inputs[i].value;
+                    break;
+            }
+        }
+
+    }
+    function send_data(data,type){
+      var xml = new XMLHttpRequest();
+      xml.onload = function(){
+        if(xml.readyState == 4 && xml.status == 200){
+
+            alert(xml.responseText);
+        }   
+        xml.open("POST", "api.php", true);
+        xml.send(data);
+    }
+ }
         // Background Image Slideshow
         const images = [
             "./pngtree.jpg",
