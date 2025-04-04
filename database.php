@@ -1,18 +1,25 @@
 <?php
 
-class Database
+class database
 {
     private $conn;
 
-    public function connect()
+    function __construct()
     {
-        $dsn = "mysql:host=localhost;dbname=gitmychat_db";
+        $this->conn = $this->connect();
+    }
+    private function connect()
+    {
+        $string = "mysql:host=localhost;gitmychat_db";
+
         try {
-            $this->conn = new PDO($dsn, DBUSER, DBPASS);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $this->conn;
+            $connection = new PDO($string, DBUSER, DBPASS);
+            return $connection;
         } catch (PDOException $e) {
-            die("Database Connection Failed: " . $e->getMessage());
+
+            echo $e->getMessage();
+            die;
         }
+        return false;
     }
 }
