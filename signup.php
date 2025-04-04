@@ -8,13 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
     <style>
-        /* Same CSS as before... */
+        /* Styles are the same as before (truncated here for clarity) */
         body,
         html {
             height: 100%;
             margin: 0;
-            overflow: hidden;
             font-family: 'Dancing Script', cursive;
+            overflow: hidden;
         }
 
         #dynamic-bg {
@@ -37,8 +37,6 @@
             align-items: center;
             justify-content: center;
             margin: 50px auto;
-            color: grey;
-            font-size: 14px;
             position: relative;
             z-index: 1;
         }
@@ -66,27 +64,19 @@
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             font-size: 16px;
+            cursor: pointer;
         }
 
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-
-        #header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
+        header {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            font-family: 'Gravitas One', cursive;
+            color: #333;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -112,51 +102,40 @@
             <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
             <input type="submit" value="Sign Up"><br><br><br>
         </form>
-
-        <label id="label_chat" style="cursor: pointer; margin-top: 20px; display: block;">Open Chat</label>
-        <div id="inner_left_pannel" style="width: 100%; text-align: center; padding: 10px;"></div>
     </div>
 
     <script>
         document.getElementById("myform").addEventListener("submit", function(e) {
-            e.preventDefault(); // prevent page reload
+            e.preventDefault();
 
             const form = e.target;
-            const formData = new FormData(form);
             const data = {
-                username: formData.get("username"),
-                email: formData.get("email"),
-                gender: formData.get("gender"),
-                password: formData.get("password"),
-                confirm_password: formData.get("confirm_password"),
+                username: form.username.value,
+                email: form.email.value,
+                gender: form.gender.value,
+                password: form.password.value,
+                confirm_password: form.confirm_password.value,
                 data_type: "signup"
             };
 
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "api.php", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    alert("Server says: " + xhr.responseText);
-                } else {
-                    alert("Error communicating with server.");
-                }
-            };
-
-            xhr.send(JSON.stringify(data));
+            fetch("api.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.text())
+                .then(response => alert(response))
+                .catch(err => alert("Error: " + err));
         });
 
-        // Background slideshow
         const images = ["./pngtree.jpg", "./oytm.jpg", "./vibrant.jpg", "./xy.jpg"];
         let index = 0;
-
-        function changeBackground() {
+        setInterval(() => {
             document.getElementById("dynamic-bg").style.backgroundImage = `url('${images[index]}')`;
             index = (index + 1) % images.length;
-        }
-        setInterval(changeBackground, 5000);
-        changeBackground();
+        }, 5000);
     </script>
 </body>
 
