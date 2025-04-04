@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login and Registration Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
     <style>
+        /* Same CSS as before... */
         body,
         html {
             height: 100%;
@@ -37,13 +36,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: transparent;
             margin: 50px auto;
             color: grey;
             font-size: 14px;
             position: relative;
             z-index: 1;
-
         }
 
         form {
@@ -56,7 +53,9 @@
             text-align: center;
         }
 
-        input[type="text"],input[type="password"],input[type="submit"] {
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
             width: 90%;
             padding: 8px;
             margin-top: 5px;
@@ -88,21 +87,21 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
         }
-        
     </style>
 </head>
 
 <body>
-
     <div id="dynamic-bg"></div>
 
     <div id="wrapper">
         <div id="header">MY Chat
-            <div style="font-size: 14px; font-family: 'Gravitas One', cursive; color: #555;">Welcome to the Chat Application</div>
+            <div style="font-size: 14px; font-family: 'Gravitas One', cursive; color: #555;">
+                Welcome to the Chat Application
+            </div>
         </div>
-        <form id="myform" >
+
+        <form id="myform">
             <h2>Register</h2>
             <input type="text" name="username" placeholder="Username" required><br><br>
             <input type="text" name="email" placeholder="Email" required><br>
@@ -111,7 +110,7 @@
             <input type="radio" name="gender" value="Female"> Female<br><br>
             <input type="password" name="password" placeholder="Password" required><br><br>
             <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
-            <input type="submit" value="Sign Up" id="signup_button"><br><br><br>
+            <input type="submit" value="Sign Up"><br><br><br>
         </form>
 
         <label id="label_chat" style="cursor: pointer; margin-top: 20px; display: block;">Open Chat</label>
@@ -119,72 +118,46 @@
     </div>
 
     <script>
-        function _(element){
-            return document.getElementById(element);
-        }
-        var signup_button = _("signup_button");
-        signup_button.addEventListener("click", collect_data);
+        document.getElementById("myform").addEventListener("submit", function(e) {
+            e.preventDefault(); // prevent page reload
 
-    function collect_data(){
-        var myform = _("myform");
-        var inputs = myform.getElementsByTagName("input");
-        var data = {};
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = {
+                username: formData.get("username"),
+                email: formData.get("email"),
+                gender: formData.get("gender"),
+                password: formData.get("password"),
+                confirm_password: formData.get("confirm_password"),
+                data_type: "signup"
+            };
 
-        for(var i = inputs.length - 1; i >= 0; i--){
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "api.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
 
-            var key =inputs[i].name;
-            switch(key){
-                case "username":
-                   data.username = inputs[i].value;
-                   break;    
-                case "email":
-                    data.email = inputs[i].value;
-                    break;
-                case "gender":
-                    if(inputs[i].checked){
-                    data.gender = inputs[i].value;
-                    }
-                    break;
-                case "password":
-                    data.password = inputs[i].value;
-                    break;        
-                case "confirm_password":
-                    data.confirm_password = inputs[i].value;
-                    break;
-            }
-        }
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert("Server says: " + xhr.responseText);
+                } else {
+                    alert("Error communicating with server.");
+                }
+            };
 
-    }
-    function send_data(data,type){
-      var xml = new XMLHttpRequest();
-      xml.onload = function(){
-        if(xml.readyState == 4 && xml.status == 200){
+            xhr.send(JSON.stringify(data));
+        });
 
-            alert(xml.responseText);
-        }   
-        xml.open("POST", "api.php", true);
-        xml.send(data);
-    }
- }
-        // Background Image Slideshow
-        const images = [
-            "./pngtree.jpg",
-            "./oytm.jpg",
-            "./vibrant.jpg",
-            "./xy.jpg"
-        ];
-
+        // Background slideshow
+        const images = ["./pngtree.jpg", "./oytm.jpg", "./vibrant.jpg", "./xy.jpg"];
         let index = 0;
 
         function changeBackground() {
             document.getElementById("dynamic-bg").style.backgroundImage = `url('${images[index]}')`;
             index = (index + 1) % images.length;
         }
-
         setInterval(changeBackground, 5000);
         changeBackground();
     </script>
-
 </body>
 
 </html>
