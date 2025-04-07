@@ -22,4 +22,20 @@ class database
         }
         return false;
     }
+    public function write($query,$data_array =[]){
+        $con = $this->connect();
+
+        $statement = $con->prepare($query);
+
+    foreach ($data_array as $key => $value){
+          # code.......    
+        $statement->bindparam(':'.$key,$value);
+        }
+
+       $check = $statement->execute();
+       if($check){
+          return true; 
+       }
+       return false;
+    }
 }

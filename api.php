@@ -3,5 +3,8 @@
 require_once("classes/autoload.php");
 
 $DB = new database();
-$data = file_get_contents("php://input");
-$myobject = json_decode($data);
+
+$DATA_RAW = file_get_contents("php://input");
+$DATA_OBJ = json_decode($data);
+
+//process the data
